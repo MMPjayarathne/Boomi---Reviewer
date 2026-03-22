@@ -5,9 +5,9 @@ A local web application that **parses Boomi integration process XML**, runs a **
 ---
 ## Screenshots
 
-![Screenshot 1](tests/assets/screenshots/Screenshot 2026-03-22 212956.png)
-![Screenshot 2](tests/assets/screenshots/Screenshot 2026-03-22 213029.png)
-![Screenshot 3](tests/assets/screenshots/Screenshot 2026-03-22 213607.png)
+![Screenshot 1](tests/assets/screenshots/Screenshot1.png)
+![Screenshot 2](tests/assets/screenshots/Screenshot2.png)
+![Screenshot 3](tests/assets/screenshots/Screenshot3.png)
 
 ## Table of contents
 
