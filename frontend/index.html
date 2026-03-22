@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boomi Process Reviewer</title>
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Sidebar -->
+    <aside id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <span class="logo-icon">⚙</span>
+          <span>Boomi Reviewer</span>
+        </div>
+      </div>
+
+      <!-- Upload Zone -->
+      <div id="upload-zone" class="upload-zone">
+        <div class="upload-icon">📂</div>
+        <div class="upload-text">Drop process.xml here</div>
+        <div class="upload-sub">or click to browse</div>
+        <input type="file" id="file-input" accept=".xml" hidden />
+      </div>
+
+      <!-- Session List -->
+      <div class="sessions-section">
+        <div class="sessions-header">Recent Analyses</div>
+        <div id="session-list"></div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main id="main">
+      <!-- Welcome Screen -->
+      <div id="welcome-screen" class="welcome">
+        <div class="welcome-icon">🔍</div>
+        <h1>AI-Powered Boomi Process Reviewer</h1>
+        <p>Upload a Boomi <code>process.xml</code> file to get started.<br/>
+           The system will analyze it for issues, vulnerabilities, and optimizations.</p>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <span>🚫</span><strong>Dead Paths</strong><br/>Unreachable & dead-end shapes
+          </div>
+          <div class="feature-card">
+            <span>🔑</span><strong>Hardcoded Values</strong><br/>Credentials, URLs, IPs
+          </div>
+          <div class="feature-card">
+            <span>⚠️</span><strong>Error Handling</strong><br/>Missing try/catch & notifications
+          </div>
+          <div class="feature-card">
+            <span>⚡</span><strong>Performance</strong><br/>Loops, batching, logging
+          </div>
+          <div class="feature-card">
+            <span>📋</span><strong>Naming</strong><br/>Conventions & labels
+          </div>
+          <div class="feature-card">
+            <span>🤖</span><strong>AI Chat</strong><br/>Ask anything about the process
+          </div>
+        </div>
+      </div>
+
+      <!-- Analysis View -->
+      <div id="analysis-view" class="hidden">
+        <!-- Top bar -->
+        <div id="analysis-header">
+          <div>
+            <span id="process-name-display" class="process-name"></span>
+            <span id="cached-badge" class="badge badge-info hidden">cached</span>
+          </div>
+          <div id="summary-badges"></div>
+        </div>
+
+        <!-- Split pane: findings + chat -->
+        <div id="split-pane">
+          <!-- Findings Panel -->
+          <div id="findings-panel">
+            <div class="panel-header">
+              <span>Issues Found</span>
+              <input type="text" id="findings-search" placeholder="Filter issues..." />
+            </div>
+            <div id="findings-list"></div>
+          </div>
+
+          <!-- Chat Panel -->
+          <div id="chat-panel">
+            <div class="panel-header">AI Copilot</div>
+            <div id="chat-messages"></div>
+            <div id="chat-input-row">
+              <textarea
+                id="chat-input"
+                placeholder="Ask about this process... (Enter to send, Shift+Enter for newline)"
+                rows="2"
+              ></textarea>
+              <button id="chat-send-btn" title="Send">▶</button>
+            </div>
+            <div class="chat-suggestions">
+              <button class="suggestion" data-q="What are the most critical issues?">Critical issues?</button>
+              <button class="suggestion" data-q="Explain the dead paths in this process.">Dead paths?</button>
+              <button class="suggestion" data-q="How can I improve the error handling?">Error handling?</button>
+              <button class="suggestion" data-q="What performance improvements do you recommend?">Performance?</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loading Overlay -->
+      <div id="loading-overlay" class="hidden">
+        <div class="spinner"></div>
+        <div id="loading-text">Analyzing process...</div>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="/static/js/api.js"></script>
+  <script type="module" src="/static/js/app.js"></script>
+</body>
+</html>

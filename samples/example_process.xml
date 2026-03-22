@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Sample Boomi process.xml for testing the Boomi Reviewer.
+  This process intentionally contains multiple issues:
+    - Hardcoded credentials (HC001)
+    - Missing error handling (EH001)
+    - Unreachable shape (DEAD001)
+    - Dead-end shape (DEAD002)
+    - Hardcoded URL (HC003)
+    - Missing shape labels (NAME002)
+-->
+<bns:Process
+  xmlns:bns="http://www.boomi.com/connector/automation"
+  processId="proc-001"
+  processName="test process 1"
+  purgeImmediately="false">
+
+  <bns:Shapes>
+    <!-- Start -->
+    <bns:Shape id="shape-start" shapeType="Start" label="Start">
+      <bns:Configuration/>
+    </bns:Shape>
+
+    <!-- HTTP Connector with hardcoded URL -->
+    <bns:Shape id="shape-http" shapeType="ConnectorCall" label="Fetch Customer Data">
+      <bns:Configuration
+        url="http://192.168.1.50:8080/api/customers"
+        method="GET"
+        username="admin"
+        password="SuperSecret123!"
+      />
+    </bns:Shape>
+
+    <!-- Map shape (no label) -->
+    <bns:Shape id="shape-map" shapeType="Map" label="">
+      <bns:Configuration mapId="map-001"/>
+    </bns:Shape>
+
+    <!-- Database connector without batch settings -->
+    <bns:Shape id="shape-db" shapeType="Database" label="Write to Oracle DB">
+      <bns:Configuration
+        connectionId="conn-oracle-001"
+        operation="INSERT"
+      />
+    </bns:Shape>
+
+    <!-- Stop -->
+    <bns:Shape id="shape-stop" shapeType="Stop" label="Stop">
+      <bns:Configuration/>
+    </bns:Shape>
+
+    <!-- Unreachable shape — no incoming connection -->
+    <bns:Shape id="shape-orphan" shapeType="Map" label="Old Mapping - Unused">
+      <bns:Configuration mapId="map-old-002"/>
+    </bns:Shape>
+
+    <!-- Dead-end shape — no outgoing connection, not a Stop -->
+    <bns:Shape id="shape-deadend" shapeType="ConnectorCall" label="Dead End Connector">
+      <bns:Configuration
+        url="https://legacy.example.com/api/sync"
+        method="POST"
+      />
+    </bns:Shape>
+
+    <!-- Loop without max iterations -->
+    <bns:Shape id="shape-loop" shapeType="FlowControl" label="Retry Loop">
+      <bns:Configuration loopType="count"/>
+    </bns:Shape>
+  </bns:Shapes>
+
+  <bns:Connections>
+    <bns:Connection id="conn-1" fromShape="shape-start" toShape="shape-http" label=""/>
+    <bns:Connection id="conn-2" fromShape="shape-http" toShape="shape-map" label=""/>
+    <bns:Connection id="conn-3" fromShape="shape-map" toShape="shape-db" label=""/>
+    <bns:Connection id="conn-4" fromShape="shape-db" toShape="shape-loop" label=""/>
+    <bns:Connection id="conn-5" fromShape="shape-loop" toShape="shape-stop" label=""/>
+    <!-- Duplicate connection -->
+    <bns:Connection id="conn-6" fromShape="shape-db" toShape="shape-loop" label=""/>
+  </bns:Connections>
+
+</bns:Process>
