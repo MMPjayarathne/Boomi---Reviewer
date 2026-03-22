@@ -3,6 +3,11 @@
 A local web application that **parses Boomi integration process XML**, runs a **static rule engine** to flag design and security issues, persists results in **SQLite**, and provides an **AI copilot** (via **Ollama**) with optional **RAG** over past chat messages.
 
 ---
+## Screenshots
+
+![Screenshot 1](tests/assets/screenshots/Screenshot 2026-03-22 212956.png)
+![Screenshot 2](tests/assets/screenshots/Screenshot 2026-03-22 213029.png)
+![Screenshot 3](tests/assets/screenshots/Screenshot 2026-03-22 213607.png)
 
 ## Table of contents
 
